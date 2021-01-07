@@ -36,28 +36,4 @@ public class GameStateInit : GameState
     {
         brain.ChangeState(GetComponent<GameStateShop>());
     }
-
-    public void OnAchievementClick()
-    {
-        if (GameManager.Instance.isConnectedToGooglePlayServices)
-        {
-            Social.ShowAchievementsUI();
-        }
-        else
-        {
-            GameManager.Instance.SignInToGooglePlayServices();
-        }
-    }
-
-    public void OnLeaderboardClick()
-    {
-        if (GameManager.Instance.isConnectedToGooglePlayServices)
-        {
-            Social.ShowLeaderboardUI();
-        }
-        else
-        {
-            GameManager.Instance.SignInToGooglePlayServices();
-        }
-    }
 }

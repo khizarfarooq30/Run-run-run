@@ -1,0 +1,13 @@
+﻿# Default ignored files
+/shelf/
+/workspace.xml
+# Rider ignored files
+/modules.xml
+/projectSettingsUpdater.xml
+/.idea.Run-run-run.iml
+/contentModel.xml
+# Datasource local storage ignored files
+/../../../../../../../../../:\Unity\Zzzmisc\Upwork(Unity)\Run run run\Run-run-run\.idea\.idea.Run-run-run\.idea/dataSources/
+/dataSources.local.xml
+# Editor-based HTTP Client requests
+/httpRequests/

@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.Advertisements;
 using UnityEngine.UI;
 
-public class GameStateDeath : GameState, IUnityAdsListener
+public class GameStateDeath : GameState
 {
     public GameObject deathUI;
     [SerializeField] private TextMeshProUGUI highscore;
@@ -16,11 +16,7 @@ public class GameStateDeath : GameState, IUnityAdsListener
     public float timeToDecision = 2.5f;
     private float deathTime;
 
-    private void Start()
-    {
-        Advertisement.AddListener(this);
-    }
-
+   
     public override void Construct()
     {
         base.Construct();
@@ -35,20 +31,6 @@ public class GameStateDeath : GameState, IUnityAdsListener
             SaveManager.Instance.save.Highscore = (int)GameStats.Instance.score;
             currentScore.color = Color.green;
 
-            if (GameManager.Instance.isConnectedToGooglePlayServices)
-            {
-                Debug.Log("Reporting score..");
-                Social.ReportScore(SaveManager.Instance.save.Highscore, GPGSIds.leaderboard_top_score, (success) =>
-                {
-                    if (!success) Debug.LogError("Unable to post highscore");
-                });
-
-                Social.ReportProgress(GPGSIds.achievement_joining_the_ladder, 100.0f, null);
-            }
-            else
-            {
-                Debug.Log("Not signed in.. unable to report score");
-            }
         }
         else
         {
@@ -81,11 +63,7 @@ public class GameStateDeath : GameState, IUnityAdsListener
         }
     }
 
-    public void TryResumeGame()
-    {
-        AdManager.Instance.ShowRewardedAd();
-    }
-
+  
     public void ResumeGame()
     {
         brain.ChangeState(GetComponent<GameStateGame>());
@@ -115,21 +93,5 @@ public class GameStateDeath : GameState, IUnityAdsListener
     public void OnUnityAdsDidStart(string placementId)
     {
 
-    }
-
-    public void OnUnityAdsDidFinish(string placementId, ShowResult showResult)
-    {
-        completionCircle.gameObject.SetActive(false);
-        switch (showResult)
-        {
-            case ShowResult.Failed:
-                ToMenu();
-                break;
-            case ShowResult.Finished:
-                ResumeGame();
-                break;
-            default:
-                break;
-        }
     }
 }

@@ -10,14 +10,4 @@ public class AdManager : MonoBehaviour
     [SerializeField] private string rewardedVideoPlacementId;
     [SerializeField] private bool testMode;
 
-    private void Awake()
-    {
-        instance = this;
-        Advertisement.Initialize(gameID, testMode);
-    }
-    public void ShowRewardedAd()
-    {
-        ShowOptions so = new ShowOptions();
-        Advertisement.Show(rewardedVideoPlacementId, so);
-    }
 }

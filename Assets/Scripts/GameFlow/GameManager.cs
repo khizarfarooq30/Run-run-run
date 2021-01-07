@@ -20,16 +20,13 @@ public class GameManager : MonoBehaviour
     public WorldGeneration worldGeneration;
     public SceneChunkGeneration sceneChunkGeneration;
     public GameObject[] cameras;
-    public bool isConnectedToGooglePlayServices;
+   
 
     private GameState state;
 
     private void Awake()
     {
         motor = FindObjectOfType<PlayerMotor>();
-        PlayGamesPlatform.DebugLogEnabled = true;
-        PlayGamesPlatform.Activate();
-     
     }
 
     private void Start()
@@ -38,24 +35,9 @@ public class GameManager : MonoBehaviour
         state = GetComponent<GameStateInit>();
         state.Construct(); 
         AdmobScript.instance.reqBannerAd();
-        SignInToGooglePlayServices();
+       
     }
-
-    public void SignInToGooglePlayServices()
-    {
-        PlayGamesPlatform.Instance.Authenticate(SignInInteractivity.CanPromptOnce, (result) => {
-            switch (result)
-            {
-                case SignInStatus.Success:
-                    isConnectedToGooglePlayServices = true;
-                    break;
-                default:
-                    isConnectedToGooglePlayServices = false;
-                    break;
-            }
-        });
-    }
-
+  
     private void Update()
     {
         state.UpdateState();
